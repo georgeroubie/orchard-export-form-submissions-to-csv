@@ -5,3 +5,5 @@ If you want to change this functionality, you have to create a module that will 
 But there is a quicker way with my best friend JavaScript.
 
 The only thing you have to do is to call this JavaScript file from the Layout.cshtml file in the admin theme.
+
+For more Orchard Tricks: https://orchardtricks.dotnest.com
