@@ -1,5 +1,7 @@
 (function () {
     var url = window.location.href.toString().toLowerCase();
+    var queryParameter = '?pagesize=0&page=1';
+    
     if (url.indexOf('submissionadmin') > -1) {
         $('<a/>', {
             id: 'export_form',
@@ -11,13 +13,24 @@
             text: 'Export to CSV',
             href: '#'
         }).insertAfter('fieldset.bulk-actions');
+        
         $('#export_form').on('click', function () {
-            var table = $('table.dynamic-forms-submissions').clone(true);
-            table.find('thead > tr > th:first-child').remove();
-            table.find('thead > tr > th:last-child').remove();
-            table.find('tbody > tr > td:first-child').remove();
-            table.find('tbody > tr > td:last-child').remove();
-            table.htmlTableToCSV();
+            if (url.indexOf(queryParameter) > -1) {
+                location.replace(url);
+            } else {
+                location.replace(queryParameter);
+            }    
+        });
+
+        $(document).ready(function () {
+            if (url.indexOf(queryParameter) > -1) {
+                var table = $('table.dynamic-forms-submissions').clone(true);
+                table.find('thead > tr > th:first-child').remove();
+                table.find('thead > tr > th:last-child').remove();
+                table.find('tbody > tr > td:first-child').remove();
+                table.find('tbody > tr > td:last-child').remove();
+                table.htmlTableToCSV();
+            }
         });
     }
 } ());
