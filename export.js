@@ -1,39 +1,42 @@
 (function () {
     var url = window.location.href.toString().toLowerCase();
-    var queryParameter = '?pagesize=0&page=1';
-    
     if (url.indexOf('submissionadmin') > -1) {
+        var queryParameter = '?pagesize=0&page=1&';
+        var exportToCSV = function() {
+            var table = $('table.dynamic-forms-submissions').clone(true);
+            table.find('thead > tr > th:first-child').remove();
+            table.find('thead > tr > th:last-child').remove();
+            table.find('tbody > tr > td:first-child').remove();
+            table.find('tbody > tr > td:last-child').remove();
+            table.htmlTableToCSV();
+        };
+
         $('<a/>', {
-            id: 'export_form',
             class: 'button',
             css: {
                 'margin-bottom': '10px',
                 'float': 'right'
             },
-            text: 'Export to CSV',
-            href: '#'
+            text: 'Export visible',
+            click: function () { exportToCSV(); }
         }).insertAfter('fieldset.bulk-actions');
-        
-        $('#export_form').on('click', function () {
-            if (url.indexOf(queryParameter) > -1) {
-                location.replace(url);
-            } else {
-                location.replace(queryParameter);
-            }    
-        });
+        $('<a/>', {
+            class: 'button',
+            css: {
+                'margin': '0 0 10px 10px',
+                'float': 'right'
+            },
+            text: 'Export all',
+            click: function () { location.replace(queryParameter); }
+        }).insertAfter('fieldset.bulk-actions');
 
         $(document).ready(function () {
             if (url.indexOf(queryParameter) > -1) {
-                var table = $('table.dynamic-forms-submissions').clone(true);
-                table.find('thead > tr > th:first-child').remove();
-                table.find('thead > tr > th:last-child').remove();
-                table.find('tbody > tr > td:first-child').remove();
-                table.find('tbody > tr > td:last-child').remove();
-                table.htmlTableToCSV();
+                exportToCSV();
             }
         });
     }
-} ());
+}());
 
 jQuery.fn.htmlTableToCSV = function () {
     var clean_text = function (text) {
