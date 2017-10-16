@@ -66,7 +66,7 @@ jQuery.fn.htmlTableToCSV = function () {
         rows = rows.join("\n");
 
         var csv = title + rows;
-        var uri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+        var uri = 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csv);
         var download_link = document.createElement('a');
         download_link.href = uri;
         var ts = $('h1').html();
@@ -77,7 +77,7 @@ jQuery.fn.htmlTableToCSV = function () {
         }
         
         if (window.navigator.msSaveOrOpenBlob && window.Blob) {
-            var blob = new Blob([csv], { type: "data:text/csv;charset=utf-8" });
+            var blob = new Blob([csv], { type: "data:text/csv;charset=utf-8,%EF%BB%BF" });
             navigator.msSaveOrOpenBlob(blob, ts + ".csv");
         } else {
             document.body.appendChild(download_link);
