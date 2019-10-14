@@ -1,4 +1,4 @@
-# Export Orchard Dynamic Form Submissions to CSV with JavaScript
+# Orchard CMS - Export Dynamic Form Submissions to CSV with JavaScript
 
 Orchard 1.10 gives you the opportunity to export Contents and Form Submissions to XML with the built-in module Import Export. 
 If you want to change this functionality, you have to create a module that will export to CSV. 
